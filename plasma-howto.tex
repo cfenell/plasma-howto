@@ -37,23 +37,30 @@ integrated for a suitable period e.g. 60 seconds. The procedure is
 different for different experiments and receivers.
 
 
-\subsection{Plasma and ion line lag profiles in same files (e.g. mainland beata, bella)}
+\subsection{Separate plasma and ion line lag profiles in same files (mainland beata)}
 \label{sec:plasma-ion-lines}
 
 The plasma line integration procedure is similar to a normal GUISDAP
 run. Select data path and interval and keep the settings the same as
-for the normal analysis, except that the following special parameter
+for the normal analysis (like integration time and / or the necessary antenna scan parameters),
+except that the following special parameter
 should be typed into the Special window:
 
 \begin{verbatim}
 analysis_plasmaline=1;
 \end{verbatim}
+?? Ingemar should one also select site P ??
 
 With this setting, GUISDAP will save integrated plasma line data.
 When using the AUTO setting, the output directories will be named like
-normal analysis directories but with site codes \texttt{@Tp}
-and\texttt{@Vp} for UHF and VHF data respectively. The stored files
-will be similar to normal lag profile data files.
+normal analysis directories but with site codes like \texttt{@Tp} (for UHF data).
+
+
+\subsection{One ion-plasma line window (mainland bella)}
+
+There are long lag experiments (at least bella) intended to contain ion and plasma lines in one spectral window. 
+
+?? Ingemar, how does this work ??
 
 
 \subsection{Separate plasma line data (ESR)}
@@ -61,12 +68,15 @@ will be similar to normal lag profile data files.
 
 ESR has separate plasma line receiver channels, so the plasma line
 data will be stored in their own data directories. These have the
-antenna name code \texttt{@32p}.
+antenna name code \texttt{@32p}. When such a data directory is selected, GUISDAP will automatically go to the plasma line integration mode, so no special settings should be necessary. Just remember to select where the output should go.
+If site P is chosen, however, the AUTO directories will get names ending in (integration time)@P, which makes it easier to separate directories, so this setting is recommended.
 
-?? TODO add a note how to integrate ESR plasma lines. ??
+(?? If this does not work then select P and analysis\_plasmaline manually ??)
 
 ?? are there different cases e.g. also experiments not using the
 separate plasma receiver but still containing plasmalines ??
+
+For dual-antenna experiments like folke, the files will contain data from both antennas. The calibration routine will ask which antenna to use when given such input.
 
 
 \clearpage{}
@@ -81,6 +91,8 @@ the program will first show an overview plot of spectrograms for a
 number of range intervals. It will then ask for a ``data path'',
 i.e. the path to the analysed GUISDAP results to compare with, and go
 on with the calibration.
+
+?? NB: \texttt{calib\_pl\_ne} can also integrate data dumps on the fly but only by number. Check: Does it require separate plasma line output from GUISDAP anyway ??
 
 However, it makes most sense to restrict the calibration to time
 periods with strong enhanced plasma lines, and limit the peak finding
